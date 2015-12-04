@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Alex
+ * @date Dec 4, 2015
+ * @class Water.java
+ * @description TODO Make a description
+ */
 public class Water extends Tile
 {
 
