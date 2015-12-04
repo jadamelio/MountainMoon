@@ -1,3 +1,10 @@
+/**
+ * 
+ * @author Jacques
+ * @date Dec 3, 2015
+ * @class Toolkit.java
+ * @description TODO Describe the class
+ */
 public class Toolkit {
 	// A class that can will contain reusable methods that will be applied to
 	// multiple classes
@@ -10,7 +17,17 @@ public class Toolkit {
 	}
 
 	
-	//Trace commands for debugging
+	//Returns a copy of a 2D Tile array, preserving original
+	public Tile[][] copyMap(Tile[][] original) {
+		Tile[][] copy = new Tile[original.length][];
+
+		for (int i = 0; i < original.length; i++) {
+			copy[i] = original[i].clone();
+		}
+		return copy;
+	}
+
+	// Trace commands for debugging
 	public void trace(String a) {
 		System.out.println(a);
 	}

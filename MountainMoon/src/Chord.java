@@ -1,3 +1,10 @@
+/**
+ * 
+ * @author Jacques
+ * @date Dec 3, 2015
+ * @class Chord.java
+ * @description TODO Describe the class
+ */
 //Linear Body that connects two nodes with in a tile
 public class Chord {
 	private CoordPac[] endPoints = new CoordPac[2];

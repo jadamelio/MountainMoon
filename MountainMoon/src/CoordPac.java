@@ -1,8 +1,19 @@
-//Class that contains three Cartesian coordinates
+/**
+ * 
+ * @author Jacques
+ * @date Dec 3, 2015
+ * @class CoordPac.java
+ * @description TODO Describe the class
+ */
+// Class that contains three Cartesian coordinates
 public class CoordPac {
 	private double x;
 	private double y;
 	private double z;
+
+	public CoordPac() {
+
+	}
 
 	public CoordPac(double x, double y, double z) {
 		super();
@@ -11,7 +22,7 @@ public class CoordPac {
 		this.z = z;
 	}
 
-	public String coordsToString() {
+	public String coordString() {
 		// Returns String of Coordinate set, (X,Y,Z)
 		return "(" + x + " " + y + " " + z + ")";
 	}

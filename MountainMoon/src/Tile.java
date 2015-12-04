@@ -1,3 +1,9 @@
+/**
+ * @author Jacques
+ * @date Dec 3, 2015
+ * @class Tile.java
+ * @description TODO Describe the class
+ */
 import java.util.ArrayList;
 
 //Parent class for all tiles, rectangular constructed out of 8 nodes
@@ -41,10 +47,15 @@ public class Tile extends Toolkit {
 		nodes = setCoords(dimension, initCoord);
 	}
 
+	public Tile(CoordPac initCoord, double dimension) {
+		nodes = setCoords(dimension, initCoord);
+	}
+
 	public Chord addChord(CoordPac[] endPoints, int width, String type, int id,
 			int chainId) {
-		//Creates new nod in the tile, rounds give coords to nearest node in the tile
-		
+		// Creates new nod in the tile, rounds give coords to nearest node in
+		// the tile
+
 		double comparitor = Double.MAX_VALUE;
 		CoordPac holderA = null;
 		CoordPac holderB = null;
@@ -52,10 +63,10 @@ public class Tile extends Toolkit {
 			for (int i = 0; i < nodes.length; i++) {
 				for (int j = 0; j < nodes[i].length; j++) {
 					if (comparitor > distanceCalc(endPoints[0], nodes[i][j])) {
-						if(p == 0){
+						if (p == 0) {
 							holderA = nodes[i][j];
 						}
-						if(p == 1){
+						if (p == 1) {
 							holderB = nodes[i][j];
 						}
 					}
@@ -75,43 +86,70 @@ public class Tile extends Toolkit {
 
 		CoordPac[][] temp = new CoordPac[3][3];
 		temp[0][0] = originCoord;
-		temp[0][2] = new CoordPac(originCoord.getX(), originCoord.getY()
-				+ dimension, originCoord.getZ());
+		temp[0][2] = new CoordPac(originCoord.getX(), originCoord.getY(),
+				originCoord.getZ() + dimension);
 		temp[2][2] = new CoordPac(originCoord.getX() + dimension,
-				originCoord.getY() + dimension, originCoord.getZ());
+				originCoord.getY(), originCoord.getZ() + dimension);
 		temp[2][0] = new CoordPac(originCoord.getX() + dimension,
 				originCoord.getY(), originCoord.getZ());
 
-		temp[0][1] = new CoordPac(originCoord.getX(), originCoord.getY()
-				+ dimension / 2, originCoord.getZ());
+		temp[0][1] = new CoordPac(originCoord.getX(), originCoord.getY(),
+				originCoord.getZ() + dimension / 2);
 		temp[1][0] = new CoordPac(originCoord.getX() + dimension / 2,
 				originCoord.getY(), originCoord.getZ());
 		temp[1][1] = new CoordPac(originCoord.getX() + dimension / 2,
-				originCoord.getY() + dimension / 2, originCoord.getZ());
+				originCoord.getY(), originCoord.getZ() + dimension / 2);
 
 		temp[2][1] = new CoordPac(originCoord.getX() + dimension,
-				originCoord.getY() + dimension / 2, originCoord.getZ());
+				originCoord.getY(), originCoord.getZ() + dimension / 2);
 		temp[1][2] = new CoordPac(originCoord.getX() + dimension / 2,
-				originCoord.getY() + dimension, originCoord.getZ());
+				originCoord.getY(), originCoord.getZ() + dimension);
 
 		return temp;
 
 	}
 
-	public String coordsToString() {
+	public String nodeString() {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][2].coordsToString() + " "
-				+ nodes[1][2].coordsToString() + " "
-				+ nodes[2][2].coordsToString() + "\n"
-				+ nodes[0][1].coordsToString() + " "
-				+ nodes[1][1].coordsToString() + " "
-				+ nodes[2][1].coordsToString() + "\n"
-				+ nodes[0][0].coordsToString() + " "
-				+ nodes[1][0].coordsToString() + " "
-				+ nodes[2][0].coordsToString() + "\n";
+		return nodes[0][2].coordString() + " " + nodes[1][2].coordString()
+				+ " " + nodes[2][2].coordString() + ""
+				+ nodes[0][1].coordString() + " " + nodes[1][1].coordString()
+				+ " " + nodes[2][1].coordString() + ""
+				+ nodes[0][0].coordString() + " " + nodes[1][0].coordString()
+				+ " " + nodes[2][0].coordString() + " ";
 
+	}
+
+	public String cornerString() {
+
+		// returns a string that is a formated set of the coordinates of each
+		// node.
+		return nodes[0][0].coordString() + " " + nodes[2][0].coordString() + " "
+				+ nodes[0][2].coordString() + " " + nodes[2][2].coordString()
+				+ " ";
+
+	}
+	
+	public String yString() {
+
+		// returns a string that is a formated set of the coordinates of each
+		// node.
+		return nodes[0][0].getY() + " " + nodes[2][0].getY() + " "
+				+ nodes[0][2].getY() + " " + nodes[2][2].getY()
+				+ " ";
+
+	}
+
+	public double setHeight(double y) {
+		for (int i = 0; i < this.nodes.length; i++) {
+			for (int j = 0; j < this.nodes[i].length; j++) {
+				this.nodes[i][j].setY(y);
+			}
+
+		}
+		return y;
 	}
 
 	public int getIndex() {

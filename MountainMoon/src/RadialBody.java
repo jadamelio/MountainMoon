@@ -1,3 +1,10 @@
+/**
+ * 
+ * @author Jacques
+ * @date Dec 3, 2015
+ * @class RadialBody.java
+ * @description TODO Describe the class
+ */
 // Circular body that grows outward at a rate
 public class RadialBody {
 	private float radius;
