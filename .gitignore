@@ -1,7 +1,7 @@
 .metadata/
 MountainMoon/bin/
-MountainMoon/src/main.java
 MountainMoon/.classpath
 MountainMoon/.project
 MountainMoon/.settings/
 .recommenders/
+MountainMoon/doc/
