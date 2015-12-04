@@ -16,7 +16,16 @@ public class Main {
 
 			}
 		}
-		map[1][1].setHeight(200);
+		map[0][2].setHeight(200);
+		map[1][2].setHeight(200);
+		map[2][2].setHeight(200);
+		
+		
+		for(int i = 0; i < map.length; i++){
+			CoordPac[] transfer = new CoordPac[map[i].length];
+					}
+		
+		
 		MapOperator op = new MapOperator();
 		map = op.tilt(map);
 		
