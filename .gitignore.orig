@@ -4,9 +4,8 @@ MountainMoon/.classpath
 MountainMoon/.project
 MountainMoon/.settings/
 .recommenders/
+<<<<<<< HEAD
 MountainMoon/doc/
-
+=======
 RemoteSystemsTempFiles/
-MountainMoon/doc/Water.html
-MountainMoon/doc/class-use/Rocks.html
-MountainMoon/doc/
+>>>>>>> origin/master
