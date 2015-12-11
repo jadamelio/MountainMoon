@@ -31,7 +31,8 @@ public class Tile extends Toolkit {
 	}
 
 	public Tile() {
-
+		super();
+		
 	}
 
 	public Tile(int index, ArrayList<Integer> adjacentTile, String type,
@@ -150,6 +151,17 @@ public class Tile extends Toolkit {
 
 		}
 		return y;
+	}
+	
+	public double getHeight(){
+		double avg = 0;
+		for (int i = 0; i < this.nodes.length; i++){
+			for(int j = 0; j < this.nodes[i].length; j++){
+				avg = avg + this.nodes[i][j].getY();
+			}
+		}
+		avg /= (this.nodes.length * this.nodes[0].length);
+		return avg;
 	}
 
 	public int getIndex() {

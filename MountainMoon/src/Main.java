@@ -4,16 +4,11 @@ public class Main {
 		map[0][0] = new Tile(new CoordPac(0, 0, 0), 10);
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				if (j == 0 && i != 0) {
-					
-					
-					
+				if (j == 0 && i != 0) {					
 					map[i][j] = new Tile(copy(map[i - 1][j].getNodes())[2][0], 10);
 				} else if (j != 0) {
 					map[i][j] = new Tile(copy(map[i][j - 1].getNodes())[0][2], 10);
-
 				}
-
 			}
 		}
 		map[0][2].setHeight(200);
