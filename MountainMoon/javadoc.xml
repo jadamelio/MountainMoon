@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.8" sourcefiles="src/Toolkit.java,src/Mountain.java,src/Chord.java,src/Rocks.java,src/Water.java,src/Plains.java,src/Desert.java,src/CoordPac.java,src/Main.java,src/RadialBody.java,src/Tile.java,src/MapOperator.java" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

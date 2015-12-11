@@ -1,11 +1,11 @@
 .metadata/
 MountainMoon/bin/
-MountainMoon/src/main.java
 MountainMoon/.classpath
 MountainMoon/.project
 MountainMoon/.settings/
 .recommenders/
-RemoteSystemsTempFiles/
-MountainMoon/doc/Water.html
-MountainMoon/doc/class-use/Rocks.html
+<<<<<<< HEAD
 MountainMoon/doc/
+=======
+RemoteSystemsTempFiles/
+>>>>>>> origin/master
