@@ -1,3 +1,7 @@
+import java.awt.Color;
+import java.awt.Polygon;
+import java.util.ArrayList;
+
 public class Main {
 	public static void main(String[] args) {
 		Tile[][] map = new Tile[3][3];
@@ -31,20 +35,33 @@ public class Main {
 			}
 			System.out.println();
 		}
+				}
 
-	}
-	
-	public static CoordPac[][] copy(CoordPac[][] original) {
-		CoordPac[][] copy = new CoordPac[original.length][original.length];
-
-		for (int i = 0; i < original.length; i++) {
-			for(int j = 0; j < original[i].length; j++){
-				copy[i][j] = new CoordPac();
-				copy[i][j].setX(original[i][j].getX());
-				copy[i][j].setZ(original[i][j].getZ());
-				copy[i][j].setY(original[i][j].getY());
+public static void routine(Tile[][] a) {
+		int count = 0;
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				count++;
 			}
 		}
-		return copy;
+		ArrayList<GraphicPolygon> mu = new ArrayList<GraphicPolygon>();
+		GraphicPolygon[] gp = new GraphicPolygon[count];
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				mu.add(new GraphicPolygon(a[i][j], new Color(0).BLUE));
+			}
+		}
+
+		for (int i = 0; i < mu.size(); i++) {
+			gp[i] = mu.get(i);
+		}
+
+		mapGraphic map = new mapGraphic();
+		map.loadMultiPoly(gp);
+
+		BasicEx ex = new BasicEx(400, 400, map);
+		ex.setVisible(true);
+
 	}
 }
+

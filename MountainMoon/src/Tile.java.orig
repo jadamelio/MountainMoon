@@ -11,7 +11,12 @@ import java.util.ArrayList;
 public class Tile extends Toolkit {
 	private int index;
 	private ArrayList<Integer> adjacentTile = new ArrayList<Integer>();
+<<<<<<< HEAD
+	private CoordPac[] nodes = new CoordPac[3];
+=======
 	private CoordPac[][] nodes = new CoordPac[3][3];
+	private CoordPac[] node;
+>>>>>>> origin/Virtual_Camera_+_Graphics
 	private String type;
 	private int typeID;
 	private double height;
@@ -115,31 +120,35 @@ public class Tile extends Toolkit {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][2].coordString() + " " + nodes[1][2].coordString()
-				+ " " + nodes[2][2].coordString() + ""
-				+ nodes[0][1].coordString() + " " + nodes[1][1].coordString()
-				+ " " + nodes[2][1].coordString() + ""
-				+ nodes[0][0].coordString() + " " + nodes[1][0].coordString()
-				+ " " + nodes[2][0].coordString() + " ";
+		return nodes[0].coordString() + " " + nodes[1].coordString()
+				+ " " + nodes[2].coordString();
 
 	}
 
+<<<<<<< HEAD
+=======
 	public String cornerString() {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][0].coordString() + " " + nodes[2][0].coordString() + " "
-				+ nodes[0][2].coordString() + " " + nodes[2][2].coordString()
-				+ " ";
+		return nodes[0][0].coordString() + " " + nodes[2][0].coordString()
+				+ " " + nodes[0][2].coordString() + " "
+				+ nodes[2][2].coordString() + " ";
 
 	}
 
-		public String yString() {
+>>>>>>> origin/Virtual_Camera_+_Graphics
+	public String yString() {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
+<<<<<<< HEAD
 		return nodes[0].getY() + " " + nodes[1].getY() + " "
 				+ nodes[2].getY();
+=======
+		return nodes[0][0].getY() + " " + nodes[2][0].getY() + " "
+				+ nodes[0][2].getY() + " " + nodes[2][2].getY() + " ";
+>>>>>>> origin/Virtual_Camera_+_Graphics
 
 	}
 
@@ -288,6 +297,16 @@ public class Tile extends Toolkit {
 	public void setBodies(ArrayList<RadialBody> bodies) {
 		this.bodies = bodies;
 	}
+<<<<<<< HEAD
+	
+	public boolean getUp(){
+		return up;
+	}
+	
+	public void setUp(boolean up){
+		this.up = up;
+=======
+
 	public CoordPac[] getNode() {
 		return node;
 	}
@@ -298,13 +317,6 @@ public class Tile extends Toolkit {
 
 	public void setNode(CoordPac[] node) {
 		this.node = node;
+>>>>>>> origin/Virtual_Camera_+_Graphics
 	}
-	public boolean getUp(){
-		return up;
-	}
-	
-	public void setUp(boolean up){
-		this.up = up;
-	}
-}
 }
