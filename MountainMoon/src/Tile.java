@@ -12,6 +12,7 @@ public class Tile extends Toolkit {
 	private int index;
 	private ArrayList<Integer> adjacentTile = new ArrayList<Integer>();
 	private CoordPac[][] nodes = new CoordPac[3][3];
+	private CoordPac[] node;
 	private String type;
 	private int typeID;
 	private ArrayList<Chord> chords = new ArrayList<Chord>();
@@ -126,19 +127,18 @@ public class Tile extends Toolkit {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][0].coordString() + " " + nodes[2][0].coordString() + " "
-				+ nodes[0][2].coordString() + " " + nodes[2][2].coordString()
-				+ " ";
+		return nodes[0][0].coordString() + " " + nodes[2][0].coordString()
+				+ " " + nodes[0][2].coordString() + " "
+				+ nodes[2][2].coordString() + " ";
 
 	}
-	
+
 	public String yString() {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
 		return nodes[0][0].getY() + " " + nodes[2][0].getY() + " "
-				+ nodes[0][2].getY() + " " + nodes[2][2].getY()
-				+ " ";
+				+ nodes[0][2].getY() + " " + nodes[2][2].getY() + " ";
 
 	}
 
@@ -150,6 +150,80 @@ public class Tile extends Toolkit {
 
 		}
 		return y;
+	}
+
+
+	
+	public double getMaxY() {
+		double highest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getY() > highest) {
+				highest = node[i].getY();
+
+			}
+		}
+
+		return highest;
+	}
+	
+	public double getMaxX() {
+		double highest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getY() > highest) {
+				highest = node[i].getX();
+
+			}
+		}
+
+		return highest;
+	}
+	public double getMaxZ() {
+		double highest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getY() > highest) {
+				highest = node[i].getZ();
+
+			}
+		}
+
+		return highest;
+	}
+	
+	
+
+	public double getMinY() {
+		double lowest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getY() < lowest) {
+				lowest = node[i].getY();
+
+			}
+		}
+
+		return lowest;
+	}
+	
+	public double getMinX() {
+		double lowest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getX() < lowest) {
+				lowest = node[i].getX();
+
+			}
+		}
+
+		return lowest;
+	}
+	public double getMinZ() {
+		double lowest = -1.0;
+		for (int i = 0; i < node.length; i++) {
+			if (node[i].getZ() < lowest) {
+				lowest = node[i].getZ();
+
+			}
+		}
+
+		return lowest;
 	}
 
 	public int getIndex() {
@@ -208,4 +282,7 @@ public class Tile extends Toolkit {
 		this.bodies = bodies;
 	}
 
+	public CoordPac[] getNode() {
+		return node;
+	}
 }

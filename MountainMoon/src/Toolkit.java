@@ -26,6 +26,7 @@ public class Toolkit {
 		}
 		return copy;
 	}
+	
 
 	// Trace commands for debugging
 	public void trace(String a) {
