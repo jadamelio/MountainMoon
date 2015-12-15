@@ -7,46 +7,31 @@ import java.util.Random;
  * @description TODO Make a description
  */
 public class MapGenerator {
-	private int height;
-	private int width;
-	private Tile[][] map;
+	private int x;
+	private int z;
+	private Map map;
 	private double faultOne = (Math.random());
 	private double faultTwo = (Math.random());
 	private double maxElevation;
 	
-	public MapGenerator(int inHeight, int inWidth, int inFaultOne, int inFaultTwo){
-		height = inHeight;
-		width = inWidth;
-		map = new Tile[height][width];
-		formatNewTiles();
+	public MapGenerator(Map map, int inFaultOne, int inFaultTwo){
+		x = map.getX();
+		z = map.getZ();
+		this.map = map;
 		faultOne = inFaultOne;
 		faultTwo = inFaultTwo;
-		maxElevation = (height + width) / 2 * faultOne;
+		maxElevation = (x + z) / 2 * faultOne;
 		formatChain();
 		
 	}
 	
-	public MapGenerator(int inHeight, int inWidth){
-		height = inHeight;
-		width = inWidth;
-		map = new Tile[height][width];
-		formatNewTiles();
-		maxElevation = (height + width) / 2;
+	public MapGenerator(Map map){
+		x = map.getX();
+		z = map.getZ();
+		this.map = map;
+		maxElevation = (x + z) / 2;
 		formatChain();
 		
-	}
-	
-	public void formatNewTiles(){
-		map[0][0] = new Tile(new CoordPac(0, 0, 0), 10);
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				if (j == 0 && i != 0) {					
-					map[i][j] = new Tile(copy(map[i - 1][j].getNodes())[2][0], 10);
-				} else if (j != 0) {
-					map[i][j] = new Tile(copy(map[i][j - 1].getNodes())[0][2], 10);
-				}
-			}
-		}
 	}
 	
 	public static CoordPac[][] copy(CoordPac[][] original) {
@@ -65,42 +50,35 @@ public class MapGenerator {
 	
 	public void formatChain(){
 		Random dice = new Random();
-		int lengthOne = (int) (((height + width) / 2));
-		int lengthTwo = (int) (((height + width) / 2));
-		if(faultOne != 0)lengthOne = (int) (((height * faultOne) + (width * faultOne)) / 2);
-		chain((int)(height - 1 * faultOne),(int)(width - 1 * faultOne), lengthOne, maxElevation, 0);	
+		int lengthOne = (int) (((x + z) / 2));
+		int lengthTwo = (int) (((x + z) / 2));
 		
-		if(faultTwo != 0)lengthTwo = (int) (((height * faultTwo) + (width * faultTwo)) / 2);
-		chain((int)(height - 1 * faultTwo),(int)(width - 1 * faultTwo), lengthTwo, 0, 0);
+		if(faultOne != 0)lengthOne = (int) (((x * faultOne) + (z * faultOne)) / 2);
+		int tempX = (int)(x - 1 * faultOne);
+		int tempY = (int)(z - 1 * faultOne);
+		chain(tempX, tempY, lengthOne, maxElevation, 0, (tempX * z) + tempY);	
+		
+		tempX = (int)(x - 1 * faultTwo);
+		tempY = (int)(z - 1 * faultTwo);
+		if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo)) / 2);
+		chain(tempX,tempY, lengthTwo, 0, 0, (tempX * z) + tempY);
 		
 	}
 	
-	public double getElevation(int x, int y){
-		return map[x][y].getHeight();
-	}
-	
-	 public int getHeight() {
-		return height;
+	 public int getx() {
+		return x;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+	public void setx(int x) {
+		this.x = x;
 	}
 
-	public int getWidth() {
-		return width;
+	public int getz() {
+		return z;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public Tile[][] getMap() {
-		return map;
-	}
-
-	public void setMap(Tile[][] map) {
-		this.map = map;
+	public void setz(int z) {
+		this.z = z;
 	}
 
 	public double getFaultOne() {
@@ -127,32 +105,44 @@ public class MapGenerator {
 		this.maxElevation = maxElevation;
 	}
 
-	public void chain(int x, int y, int length, double elevation, int current){
+	public void chain(int x, int y, int length, double elevation, int current, int prevIndex){
 	   Random dice = new Random();
-	   map[x][y].setHeight(elevation);
+	   map.getTile(x, y).setHeight(elevation);
+	   
+	   int index = (x * this.x) + y;
 	    if (current <= length){
-	      if (x != 0 && y != 0 && x != (width - 1) && y != (height - 1)){
-	        if (dice.nextInt(100) < 50){
-	          if (map[x + 1][y].getHeight() == map[x][y].getHeight()){
-	            chain(x - 1, y, length, elevation, current + 1);
-	          }
-	          else if (map[x - 1][y].getHeight() == map[x][y].getHeight()){
-	            chain(x + 1, y, length, elevation, current + 1);
-	          }
-	          else if (map[x][y + 1].getHeight() == map[x][y].getHeight()){
-	            chain(x, y - 1, length, elevation, current + 1);
-	          }
-	          else if (map[x][y - 1].getHeight() == map[x][y].getHeight()){
-	            chain(x, y + 1,length, elevation, current + 1);
-	          }
-	          else{
-	            chain(x + (1 - dice.nextInt(2)), y + (1 - dice.nextInt(2)), length, elevation, current + 1);
-	          }
-	        }
-	        else{
-	          chain(x + (1 - dice.nextInt(2)), y + (1 - dice.nextInt(2)), length, elevation, current + 1);
-	        }
-	      }
-	    }
+	    	if (x != 0 && y != 0 && x != (z - 1) && y != (x - 1)){
+	   			if(map.getTile(x, y).getUp() == true){		
+	    			int tempDecide = dice.nextInt(2);
+	    			if((prevIndex - 1) == index){
+	    				if(tempDecide <= 1) chain(x, y - 1, length, elevation, current + 1, index);
+	    				else chain(x - 1, y, length, elevation, current + 1, index);
+	    			}
+	    			else if(prevIndex + 1 == index){
+	    				if(tempDecide <= 1) chain(x, y + 1, length, elevation, current + 1, index);
+	    				else chain(x - 1, y, length, elevation, current + 1, index);
+	    			}
+	    			else{
+	    				if(tempDecide <= 1) chain(x, y - 1, length, elevation, current + 1, index);
+	    				else chain(x, y + 1, length, elevation, current + 1, index);
+	    			}
+ 				}
+   				else{
+   					int tempDecide = dice.nextInt(2);
+	    			if((prevIndex - 1) == index){
+	    				if(tempDecide <= 1) chain(x, y - 1, length, elevation, current + 1, index);
+	    				else chain(x + 1, y, length, elevation, current + 1, index);
+	    			}
+	    			else if(prevIndex + 1 == index){
+	    				if(tempDecide <= 1) chain(x, y + 1, length, elevation, current + 1, index);
+	    				else chain(x + 1, y, length, elevation, current + 1, index);
+	    			}
+	    			else{
+	    				if(tempDecide <= 1) chain(x, y - 1, length, elevation, current + 1, index);
+	    				else chain(x, y + 1, length, elevation, current + 1, index);
+	    			}
+	   			}
+	    	}
+	   	}
 	  }
 }

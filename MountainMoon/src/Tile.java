@@ -11,15 +11,16 @@ import java.util.ArrayList;
 public class Tile extends Toolkit {
 	private int index;
 	private ArrayList<Integer> adjacentTile = new ArrayList<Integer>();
-	private CoordPac[][] nodes = new CoordPac[3][3];
+	private CoordPac[] nodes = new CoordPac[3];
 	private String type;
 	private int typeID;
 	private ArrayList<Chord> chords = new ArrayList<Chord>();
 	private ArrayList<RadialBody> bodies = new ArrayList<RadialBody>();
+	private boolean up;
 
-	public Tile(int index, ArrayList<Integer> adjacentTile, CoordPac[][] nodes,
+	public Tile(int index, ArrayList<Integer> adjacentTile, CoordPac[] nodes,
 			String type, int typeID, ArrayList<Chord> chords,
-			ArrayList<RadialBody> bodies) {
+			ArrayList<RadialBody> bodies, boolean up) {
 		super();
 		this.index = index;
 		this.adjacentTile = adjacentTile;
@@ -46,6 +47,13 @@ public class Tile extends Toolkit {
 		this.chords = chords;
 		this.bodies = bodies;
 		nodes = setCoords(dimension, initCoord);
+	}
+	
+	public Tile(int index, ArrayList<Integer> adjacentTile, CoordPac initCoord, double dimension, boolean up){
+		this.index = index;
+		this.adjacentTile = adjacentTile;
+		this.nodes = setCoords(dimension, initCoord);
+		this.up = up;
 	}
 
 	public Tile(CoordPac initCoord, double dimension) {
@@ -80,32 +88,24 @@ public class Tile extends Toolkit {
 		return chords.get(chords.size() - 1);
 	}
 
-	public CoordPac[][] setCoords(double dimension, CoordPac originCoord) {
+	public CoordPac[] setCoords(double dimension, CoordPac originCoord) {
 
 		// Fills the node array with CoordPacs using only bottom left(origin)
 		// corner and the dimension of the tile
 
-		CoordPac[][] temp = new CoordPac[3][3];
-		temp[0][0] = originCoord;
-		temp[0][2] = new CoordPac(originCoord.getX(), originCoord.getY(),
-				originCoord.getZ() + dimension);
-		temp[2][2] = new CoordPac(originCoord.getX() + dimension,
-				originCoord.getY(), originCoord.getZ() + dimension);
-		temp[2][0] = new CoordPac(originCoord.getX() + dimension,
-				originCoord.getY(), originCoord.getZ());
-
-		temp[0][1] = new CoordPac(originCoord.getX(), originCoord.getY(),
-				originCoord.getZ() + dimension / 2);
-		temp[1][0] = new CoordPac(originCoord.getX() + dimension / 2,
-				originCoord.getY(), originCoord.getZ());
-		temp[1][1] = new CoordPac(originCoord.getX() + dimension / 2,
-				originCoord.getY(), originCoord.getZ() + dimension / 2);
-
-		temp[2][1] = new CoordPac(originCoord.getX() + dimension,
-				originCoord.getY(), originCoord.getZ() + dimension / 2);
-		temp[1][2] = new CoordPac(originCoord.getX() + dimension / 2,
-				originCoord.getY(), originCoord.getZ() + dimension);
-
+		CoordPac[] temp = new CoordPac[3];
+		temp[0] = originCoord;
+		temp[2] = new CoordPac(originCoord.getX() + dimension, originCoord.getY(),
+				originCoord.getZ());
+		if(up == true){
+			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(),
+					originCoord.getZ() + Math.sqrt(dimension / 2));
+		}
+		
+		else{
+			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(), 
+					originCoord.getZ() - Math.sqrt(dimension / 2));
+		}
 		return temp;
 
 	}
@@ -114,41 +114,23 @@ public class Tile extends Toolkit {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][2].coordString() + " " + nodes[1][2].coordString()
-				+ " " + nodes[2][2].coordString() + ""
-				+ nodes[0][1].coordString() + " " + nodes[1][1].coordString()
-				+ " " + nodes[2][1].coordString() + ""
-				+ nodes[0][0].coordString() + " " + nodes[1][0].coordString()
-				+ " " + nodes[2][0].coordString() + " ";
+		return nodes[0].coordString() + " " + nodes[1].coordString()
+				+ " " + nodes[2].coordString();
 
 	}
 
-	public String cornerString() {
-
-		// returns a string that is a formated set of the coordinates of each
-		// node.
-		return nodes[0][0].coordString() + " " + nodes[2][0].coordString() + " "
-				+ nodes[0][2].coordString() + " " + nodes[2][2].coordString()
-				+ " ";
-
-	}
-	
 	public String yString() {
 
 		// returns a string that is a formated set of the coordinates of each
 		// node.
-		return nodes[0][0].getY() + " " + nodes[2][0].getY() + " "
-				+ nodes[0][2].getY() + " " + nodes[2][2].getY()
-				+ " ";
+		return nodes[0].getY() + " " + nodes[1].getY() + " "
+				+ nodes[2].getY();
 
 	}
 
 	public double setHeight(double y) {
 		for (int i = 0; i < this.nodes.length; i++) {
-			for (int j = 0; j < this.nodes[i].length; j++) {
-				this.nodes[i][j].setY(y);
-			}
-
+			this.nodes[i].setY(y);
 		}
 		return y;
 	}
@@ -156,11 +138,9 @@ public class Tile extends Toolkit {
 	public double getHeight(){
 		double avg = 0;
 		for (int i = 0; i < this.nodes.length; i++){
-			for(int j = 0; j < this.nodes[i].length; j++){
-				avg = avg + this.nodes[i][j].getY();
-			}
+			avg = avg + this.nodes[i].getY();
 		}
-		avg /= (this.nodes.length * this.nodes[0].length);
+		avg /= (this.nodes.length);
 		return avg;
 	}
 
@@ -180,11 +160,11 @@ public class Tile extends Toolkit {
 		this.adjacentTile = adjacentTile;
 	}
 
-	public CoordPac[][] getNodes() {
+	public CoordPac[] getNodes() {
 		return nodes;
 	}
 
-	public void setNodes(CoordPac[][] nodes) {
+	public void setNodes(CoordPac[] nodes) {
 		this.nodes = nodes;
 	}
 
@@ -219,5 +199,12 @@ public class Tile extends Toolkit {
 	public void setBodies(ArrayList<RadialBody> bodies) {
 		this.bodies = bodies;
 	}
-
+	
+	public boolean getUp(){
+		return up;
+	}
+	
+	public void setUp(boolean up){
+		this.up = up;
+	}
 }
