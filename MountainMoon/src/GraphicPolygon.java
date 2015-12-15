@@ -39,7 +39,10 @@ public class GraphicPolygon {
 	public void setColour(Tile t, Color c) {
 		if (c != null) {
 			int angle = (int)Math.toDegrees(Math.atan((t.getMaxY() - t.getMinY())/(t.getMaxX() - t.getMinX())));
-			colour = new Color(c.getRed()- angle, c.getGreen()-angle, c.getBlue() -angle);
+			colour = new Color((int)t.getHeight(),10,angle);
+		
+			
+			
 			
 			
 			

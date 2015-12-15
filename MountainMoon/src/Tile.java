@@ -15,6 +15,7 @@ public class Tile extends Toolkit {
 	private CoordPac[] node;
 	private String type;
 	private int typeID;
+	private double height;
 	private ArrayList<Chord> chords = new ArrayList<Chord>();
 	private ArrayList<RadialBody> bodies = new ArrayList<RadialBody>();
 
@@ -284,5 +285,13 @@ public class Tile extends Toolkit {
 
 	public CoordPac[] getNode() {
 		return node;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setNode(CoordPac[] node) {
+		this.node = node;
 	}
 }
