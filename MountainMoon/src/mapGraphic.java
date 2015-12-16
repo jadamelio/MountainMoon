@@ -34,8 +34,8 @@ public class mapGraphic extends JPanel {
 		
 		Graphics2D g2D = (Graphics2D) g;
 		for (int i = 0; i < tiles.size(); i++) {
-			g2D.setColor(colour.get(i));
-			g2D.fillPolygon(tiles.get(i));
+		g2D.setColor(colour.get(i));
+			g2D.drawPolygon(tiles.get(i));
 			
 		}
 
@@ -49,8 +49,7 @@ public class mapGraphic extends JPanel {
 	}
 
 	public Polygon loadAddPoly(GraphicPolygon gp) {
-		Polygon temp = new Polygon(gp.getxCoord(), gp.getyCoord(),
-				gp.getNodes());
+		Polygon temp = new Polygon(gp.getxCoord(), gp.getyCoord(),3);
 		tiles.add(temp);
 		colour.add(gp.getColour());
 		return temp;

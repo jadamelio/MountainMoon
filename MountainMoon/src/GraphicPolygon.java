@@ -11,17 +11,17 @@ import java.awt.Color;
 public class GraphicPolygon {
 
 	int nodes = 3;
-	int[] xCoord; 
-	int[] yCoord; 
+	int[] xCoord = new int[3]; 
+	int[] zCoord = new int[3]; 
 	Color colour;
 
 	public GraphicPolygon(int a) {
 		xCoord = new int[]{1,85,19};
-		yCoord = new int[]{1,20,16};
+		zCoord = new int[]{1,20,16};
 		colour = new Color(0).RED;
 	}
 	public GraphicPolygon() {
-	
+		
 	}
 	
 	
@@ -31,6 +31,7 @@ public class GraphicPolygon {
 	
 
 	public GraphicPolygon(Tile t, Color c) {
+		
 		fillCoords(t);
 		setColour(t,c);
 
@@ -54,9 +55,15 @@ public class GraphicPolygon {
 	}
 
 	public void fillCoords(Tile t) {
-		for (int i = 0; i < t.getNode().length; i++) {
-			xCoord[i] = (int) t.getNode()[i].getX();
-			yCoord[i] = (int) t.getNode()[i].getY();
+		for (int i = 0; i < t.getNodes().length; i++) {
+			Double d = new Double(t.getNodes()[i].getX());
+		
+			
+			
+			System.out.println(i);
+			xCoord[i] = d.intValue();
+			d = new Double(t.getNodes()[i].getZ());
+			zCoord[i] = d.intValue() ;
 		}
 	}
 
@@ -77,11 +84,11 @@ public class GraphicPolygon {
 	}
 
 	public int[] getyCoord() {
-		return yCoord;
+		return zCoord;
 	}
 
 	public void setyCoord(int[] yCoord) {
-		this.yCoord = yCoord;
+		this.zCoord = yCoord;
 	}
 
 	public Color getColour() {

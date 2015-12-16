@@ -50,7 +50,7 @@ public class MapGenerator {
 		return copy;
 	}
 	
-	public ArrayList<Integer> getproperLengthList(double length, double fault, ArrayList<Integer> notRandom){
+	public ArrayList<Integer> getProperLengthList(double length, double fault, ArrayList<Integer> notRandom){
 		int num = (int) length / 16;
 		for(int i = 1; i <= num + 1; i++){
 			String temp = Double.toString(fault * i);
@@ -62,6 +62,7 @@ public class MapGenerator {
 		return notRandom;
 	}
 		public void formatChain(){
+		/*
 		Random dice = new Random();
 		int lengthOne = (int) (((x + z) / 2));
 		int lengthTwo = (int) (((x + z) / 2));
@@ -75,7 +76,12 @@ public class MapGenerator {
 		tempY = (int)(z - 1 * faultTwo);
 		if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo)) / 2);
 		chain(tempX,tempY, lengthTwo, 0, 0, -1);
-		
+		*/
+		//chain(10,new ArrayList<Integer>(), 255, getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0);	
+
+			System.out.println(map.getTile(261).getAdjacent(0));
+			System.out.println(map.getTile(261).getAdjacent(1));
+			System.out.println(map.getTile(261).getAdjacent(2));
 	}
 
 	public void chain(int index, ArrayList<Integer> contains, double height,

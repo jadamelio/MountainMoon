@@ -31,8 +31,8 @@ public class Map {
 				 * statements than it can be added to the arraylist.
 				 */
 				boolean tempUp = false;
-				if((i == 0 || i % 2 == 0) && (j == 0 || j % 2 == 0)) tempUp = true;
-				ArrayList<Integer> tempAdjacent = new ArrayList<Integer>();
+				if((j + i) % 2 == 0)tempUp = true;
+				int[] tempAdjacent = new int[3];
 				Boolean[] tempHelp = new Boolean[4];
 				for(int k = 0; k < 4; k++){
 					tempHelp[k] = true;
@@ -43,20 +43,20 @@ public class Map {
 				if((tempIndex + x) >= x) tempHelp[3] = false;
 				
 				if(tempUp == true){
-					if(tempHelp[0]) tempAdjacent.add(tempIndex - 1);
-					if(tempHelp[2]) tempAdjacent.add(tempIndex + 1);
-					if(tempHelp[3]) tempAdjacent.add(tempIndex + z);
+					if(tempHelp[0]) tempAdjacent[0] = (tempIndex - 1);
+					if(tempHelp[3]) tempAdjacent[1] = (tempIndex + 1);
+					if(tempHelp[2]) tempAdjacent[2] = (tempIndex + z);
 				}
 				else{
-					if(tempHelp[0]) tempAdjacent.add(tempIndex - 1);
-					if(tempHelp[1]) tempAdjacent.add(tempIndex - z);
-					if(tempHelp[2]) tempAdjacent.add(tempIndex + 1);
+					if(tempHelp[0]) tempAdjacent[0] = (tempIndex - 1);
+					if(tempHelp[1]) tempAdjacent[1] = (tempIndex - z);
+					if(tempHelp[2]) tempAdjacent[2] = (tempIndex + 1);
 				}
 				
 				CoordPac tempInitCoord;
-				if(tempUp == true) tempInitCoord = new CoordPac(i * dimension, -1, j * dimension);
+				if(tempUp == true) tempInitCoord = new CoordPac(i * dimension, 10, j * dimension);
 				else{
-					tempInitCoord = new CoordPac((i + 1) * dimension, -1, j * dimension);
+					tempInitCoord = new CoordPac((i + 1) * dimension, 10, j * dimension);
 				}
 
 				map[i][j] = new Tile(tempIndex, tempAdjacent, tempInitCoord, dimension, tempUp);

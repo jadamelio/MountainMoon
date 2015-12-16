@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Tile extends Toolkit {
 	private int index;
-	private ArrayList<Integer> adjacentTile = new ArrayList<Integer>();
+	private int[] adjacentTile = new int[3];
 	private CoordPac[] nodes = new CoordPac[3];
 	private String type;
 	private int typeID;
@@ -19,7 +19,7 @@ public class Tile extends Toolkit {
 	private ArrayList<RadialBody> bodies = new ArrayList<RadialBody>();
 	private boolean up;
 
-	public Tile(int index, ArrayList<Integer> adjacentTile, CoordPac[] nodes,
+	public Tile(int index, int[] adjacentTile, CoordPac[] nodes,
 			String type, int typeID, ArrayList<Chord> chords,
 			ArrayList<RadialBody> bodies, boolean up) {
 		super();
@@ -30,6 +30,7 @@ public class Tile extends Toolkit {
 		this.typeID = typeID;
 		this.chords = chords;
 		this.bodies = bodies;
+		this.up = up;
 	}
 
 	public Tile() {
@@ -37,7 +38,7 @@ public class Tile extends Toolkit {
 		
 	}
 
-	public Tile(int index, ArrayList<Integer> adjacentTile, String type,
+	public Tile(int index, int[] adjacentTile, String type,
 			int typeID, ArrayList<Chord> chords, ArrayList<RadialBody> bodies,
 			CoordPac initCoord, double dimension) {
 		super();
@@ -50,11 +51,11 @@ public class Tile extends Toolkit {
 		nodes = setCoords(dimension, initCoord);
 	}
 	
-	public Tile(int index, ArrayList<Integer> adjacentTile, CoordPac initCoord, double dimension, boolean up){
+	public Tile(int index,int[] adjacentTile, CoordPac initCoord, double dimension, boolean up){
 		this.index = index;
 		this.adjacentTile = adjacentTile;
-		this.nodes = setCoords(dimension, initCoord);
 		this.up = up;
+		this.nodes = setCoords(dimension, initCoord);
 	}
 
 	public Tile(CoordPac initCoord, double dimension) {
@@ -72,12 +73,12 @@ public class Tile extends Toolkit {
 				originCoord.getZ());
 		if(up == true){
 			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(),
-					originCoord.getZ() + Math.sqrt(dimension / 2));
+					originCoord.getZ() + Math.sqrt(3) * (dimension / 2));
 		}
 		
 		else{
 			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(), 
-					originCoord.getZ() - Math.sqrt(dimension / 2));
+					originCoord.getZ() - Math.sqrt(3) * (dimension / 2));
 		}
 		return temp;
 
@@ -191,8 +192,8 @@ public class Tile extends Toolkit {
 	}
 	
 	public boolean isNextTo(int index){
-		for(int i = 0; i < adjacentTile.size(); i++){
-			if(adjacentTile.get(i) == index){
+		for(int i = 0; i < adjacentTile.length; i++){
+			if(adjacentTile[i] == index){
 				return true;
 			}
 		}
@@ -200,7 +201,7 @@ public class Tile extends Toolkit {
 	}
 
 	public int getAdjacent(int a){
-		return adjacentTile.get(a);
+		return adjacentTile[a];
 	}
 	public int getIndex() {
 		return index;
@@ -210,11 +211,11 @@ public class Tile extends Toolkit {
 		this.index = index;
 	}
 
-	public ArrayList<Integer> getAdjacentTile() {
+	public int[] getAdjacentTile() {
 		return adjacentTile;
 	}
 
-	public void setAdjacentTile(ArrayList<Integer> adjacentTile) {
+	public void setAdjacentTile(int[] adjacentTile) {
 		this.adjacentTile = adjacentTile;
 	}
 
@@ -264,6 +265,13 @@ public class Tile extends Toolkit {
 	
 	public void setUp(boolean up){
 		this.up = up;
+	}
+	
+	public void printNodes(){
+		System.out.println(nodes[0].coordString());
+		System.out.println(nodes[1].coordString());
+		System.out.println(nodes[2].coordString());
+		System.out.println();
 	}
 }
 
