@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 /**
  * 
@@ -24,7 +25,7 @@ public class MapGenerator {
 		formatChain();
 		
 	}
-	
+		
 	public MapGenerator(Map map){
 		x = map.getX();
 		z = map.getZ();
@@ -48,6 +49,18 @@ public class MapGenerator {
 		return copy;
 	}
 	
+	public ArrayList<Integer> getproperLengthList(double length, double fault, ArrayList<Integer> notRandom){
+		int num = (int) length / 16;
+		for(int i = 1; i <= num + 1; i++){
+			String temp = Double.toString(fault * i);
+			for(int j = 0; j < 16; j++){
+				char now = temp.charAt(j);
+				notRandom.add((int) now);
+			}
+		}
+		return notRandom;
+	}
+	
 	public void formatChain(){
 		Random dice = new Random();
 		int lengthOne = (int) (((x + z) / 2));
@@ -56,12 +69,12 @@ public class MapGenerator {
 		if(faultOne != 0)lengthOne = (int) (((x * faultOne) + (z * faultOne)) / 2);
 		int tempX = (int)(x - 1 * faultOne);
 		int tempY = (int)(z - 1 * faultOne);
-		chain(tempX, tempY, lengthOne, maxElevation, 0, (tempX * z) + tempY);	
+		chain(tempX, tempY, lengthOne, maxElevation, 0, -1);	
 		
 		tempX = (int)(x - 1 * faultTwo);
 		tempY = (int)(z - 1 * faultTwo);
 		if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo)) / 2);
-		chain(tempX,tempY, lengthTwo, 0, 0, (tempX * z) + tempY);
+		chain(tempX,tempY, lengthTwo, 0, 0, -1);
 		
 	}
 	
