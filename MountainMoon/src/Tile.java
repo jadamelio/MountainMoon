@@ -189,7 +189,19 @@ public class Tile extends Toolkit {
 
 		return lowest;
 	}
+	
+	public boolean isNextTo(int index){
+		for(int i = 0; i < adjacentTile.size(); i++){
+			if(adjacentTile.get(i) == index){
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public int getAdjacent(int a){
+		return adjacentTile.get(a);
+	}
 	public int getIndex() {
 		return index;
 	}
