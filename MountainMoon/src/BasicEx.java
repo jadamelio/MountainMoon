@@ -13,7 +13,7 @@ public class BasicEx extends JFrame {
 	private void initUI() {
 		add(new mapGraphic());
 		setTitle("Title");
-		setSize(300, 300);
+		//setSize(300, 300);
 		setLocationRelativeTo(null);
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

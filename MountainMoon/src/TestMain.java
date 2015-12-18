@@ -10,10 +10,19 @@ import java.util.ArrayList;
  */
 public class TestMain {
 	public static void main(String[] args){
-		Map map = new Map(100, 100, 50);
+		Map map = new Map(100, 100, 100);
 		MapGenerator test = new MapGenerator(map);
 		routine(map.getMap());
 	}
+	
+	public static double distanceCalc(CoordPac a, CoordPac b) {
+		// Returns the distance between two 3d points
+		return (double) Math
+				.sqrt(((a.getX() - b.getX()) * (a.getX() - b.getX()))
+						+ ((a.getY() - b.getY()) * (a.getY() - b.getY()))
+						+ ((a.getZ() - b.getZ()) * (a.getZ() - b.getZ())));
+	}
+
 	
 	public static void routine(Tile[][] a) {
 		int count = 0;
@@ -26,7 +35,8 @@ public class TestMain {
 		GraphicPolygon[] gp = new GraphicPolygon[count];
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[i].length; j++) {
-				a[4][3].printNodes();
+				
+		
 				mu.add((new GraphicPolygon(a[i][j], new Color(100,50,100))));
 			}
 		}
