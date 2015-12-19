@@ -44,19 +44,25 @@ public class Map {
 				
 				if(tempUp == true){
 					if(tempHelp[0]) tempAdjacent[0] = (tempIndex - 1);
+					else tempAdjacent[0] = -1;
 					if(tempHelp[3]) tempAdjacent[1] = (tempIndex + 1);
+					else tempAdjacent[1] = -1;
 					if(tempHelp[2]) tempAdjacent[2] = (tempIndex + z);
+					else tempAdjacent[2] = -1;
 				}
 				else{
 					if(tempHelp[0]) tempAdjacent[0] = (tempIndex - 1);
+					else tempAdjacent[0] = -1;
 					if(tempHelp[1]) tempAdjacent[1] = (tempIndex - z);
+					else tempAdjacent[1] = -1;
 					if(tempHelp[2]) tempAdjacent[2] = (tempIndex + 1);
+					else tempAdjacent[2] = -1;
 				}
 				
 				CoordPac tempInitCoord;
-				if(tempUp == true) tempInitCoord = new CoordPac(i * dimension, 10, j * dimension);
+				if(tempUp == true) tempInitCoord = new CoordPac(i * dimension, -1, j * dimension);
 				else{
-					tempInitCoord = new CoordPac((i + 1) * dimension, 10, j * dimension);
+					tempInitCoord = new CoordPac((i + 1) * dimension, -1, j * dimension);
 				}
 
 				map[i][j] = new Tile(tempIndex, tempAdjacent, tempInitCoord, dimension, tempUp);

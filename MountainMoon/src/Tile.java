@@ -18,6 +18,7 @@ public class Tile extends Toolkit {
 	private ArrayList<Chord> chords = new ArrayList<Chord>();
 	private ArrayList<RadialBody> bodies = new ArrayList<RadialBody>();
 	private boolean up;
+	private boolean occupied = false;
 
 	public Tile(int index, int[] adjacentTile, CoordPac[] nodes,
 			String type, int typeID, ArrayList<Chord> chords,
@@ -272,6 +273,10 @@ public class Tile extends Toolkit {
 		System.out.println(nodes[1].coordString());
 		System.out.println(nodes[2].coordString());
 		System.out.println();
+	}
+	
+	public boolean isOccupied(){
+		return occupied;
 	}
 }
 

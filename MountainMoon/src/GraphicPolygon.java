@@ -56,14 +56,21 @@ public class GraphicPolygon {
 
 	public void fillCoords(Tile t) {
 		for (int i = 0; i < t.getNodes().length; i++) {
-			Double d = new Double(t.getNodes()[i].getX());
+			
 		
 			
 			
 			System.out.println(i);
-			xCoord[i] = d.intValue();
-			d = new Double(t.getNodes()[i].getZ());
-			zCoord[i] = d.intValue() ;
+			if(t.getUp()){
+				xCoord[i] = (int)Math.ceil(t.getNodes()[i].getX());
+
+				zCoord[i] = (int)Math.ceil(t.getNodes()[i].getZ());
+			}else{
+				xCoord[i] = (int)Math.floor(t.getNodes()[i].getX());
+
+				zCoord[i] = (int)Math.floor(t.getNodes()[i].getZ());
+			}
+			
 		}
 	}
 

@@ -36,27 +36,37 @@ public class MapGenerator {
 
 	}
 
-	public static CoordPac[][] copy(CoordPac[][] original) {
-		CoordPac[][] copy = new CoordPac[original.length][original.length];
+	public static CoordPac[] copy(CoordPac[] original) {
+		CoordPac[] copy = new CoordPac[original.length];
 
 		for (int i = 0; i < original.length; i++) {
-			for (int j = 0; j < original[i].length; j++) {
-				copy[i][j] = new CoordPac();
-				copy[i][j].setX(original[i][j].getX());
-				copy[i][j].setZ(original[i][j].getZ());
-				copy[i][j].setY(original[i][j].getY());
-			}
+			copy[i] = new CoordPac();
+			copy[i].setX(original[i].getX());
+			copy[i].setZ(original[i].getZ());
+			copy[i].setY(original[i].getY());	
 		}
 		return copy;
 	}
 	
+//	public void grow(int index, int typeID, int length){
+//		if(length > 0){
+//			for(int i = 0; i < 3; i++){
+//				if(index / (map.getZ()) >= map.getX() || index % (map.getZ()) >= map.getZ())
+//				int tempIndex = (map.getTile(index).getAdjacentTile())[i];
+//				Tile temp = map.getTile(tempIndex);
+//				
+//			}
+//		}
+//	}
+	
 	public ArrayList<Integer> getProperLengthList(double length, double fault, ArrayList<Integer> notRandom){
 		int num = (int) length / 16;
-		for(int i = 1; i <= num + 1; i++){
+		num = num * 2;
+		for(int i = 1; i <= num; i++){
 			String temp = Double.toString(fault * i);
-			for(int j = 0; j < 16; j++){
-				char now = temp.charAt(j);
-				notRandom.add((int) now);
+			for(int j = 3; j < temp.length(); j++){
+				String now = temp.substring(j - 1, j);
+				notRandom.add((Integer.parseInt(now)));
 			}
 		}
 		return notRandom;
@@ -77,7 +87,7 @@ public class MapGenerator {
 		if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo)) / 2);
 		chain(tempX,tempY, lengthTwo, 0, 0, -1);
 		*/
-		//chain(10,new ArrayList<Integer>(), 255, getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0);	
+		chain(10,new ArrayList<Integer>(), 255, getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0);	
 
 			System.out.println(map.getTile(261).getAdjacent(0));
 			System.out.println(map.getTile(261).getAdjacent(1));
@@ -94,20 +104,21 @@ public class MapGenerator {
 			contains.add(index);
 			chain(index, contains, height, dice, dicePosition);
 		} else {
-
-			while (contains.contains(new Integer(map.getTile(index)
-					.getAdjacent(dice.get(dicePosition) % 3)))) {
-				loop++;
-				if (loop > dice.size()) {
-					break;
+			if( !(index / (map.getZ()) >= map.getX() - 1) || !(index % (map.getZ()) >= map.getZ() - 1) || !(index == -1)){ 
+				Tile temp = map.getTile(index);
+				while (contains.contains(temp.getAdjacent(dice.get(dicePosition) % 3))
+					|| (temp.getAdjacent(dice.get(dicePosition) % 3) == -1)) {
+					loop++;
+					if (loop >= dice.size()) break;
+					dicePosition++;
+					if(dicePosition == dice.size() - 1) break;
 				}
-				dicePosition++;
-			}
-			contains.add(index);
-			map.getTile(index).setHeight(height);
-			chain(map.getTile(index).getAdjacent(dice.get(dicePosition) % 3),
+				contains.add(index);
+				temp.setHeight(height);
+				chain(temp.getAdjacent(dice.get(dicePosition) % 3),
 					contains, height, dice, dicePosition + 1);
 
+			}
 		}
 	}
 
