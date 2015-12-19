@@ -31,48 +31,36 @@ public class MapOperator extends Toolkit {
 	public Tile[][] tilt(Tile[][] original) {
 		Tile[][] copy = copyMap(original);
 
-		for (int i = 0; i < copy.length; i++) {
-			for (int j = 0; j < copy[i].length; j++) {
-				if (j != copy[i].length - 1) {
+		for (int i = 0; i < original.length; i++) {
+			for (int j = 0; j < original[i].length - 1; j++) {
+				if (original[i][j].getUp()) {
+					double height = (original[i][j].getNodes()[1].getY() + original[i][j + 1]
+							.getNodes()[1].getY()) / 2;
+					original[i][j].getNodes()[1].setY(height);
+					original[i][j + 1].getNodes()[1].setY(height);
+				} else {
+					double height = (original[i][j].getNodes()[2].getY() + original[i][j + 1]
+							.getNodes()[2].getY()) / 2;
+					original[i][j].getNodes()[2].setY(height);
+					original[i][j + 1].getNodes()[2].setY(height);
 
-					double average = (copy[i][j].getNodes()[0][2].getY() + copy[i][j + 1]
-							.getNodes()[0][0].getY()) / 2;
-
-					copy[i][j].getNodes()[0][2].setY(average);
-					copy[i][j + 1].getNodes()[0][0].setY(average);
-
-					average = (copy[i][j].getNodes()[2][2].getY() + copy[i][j + 1]
-							.getNodes()[2][0].getY()) / 2;
-
-					copy[i][j].getNodes()[2][2].setY(average);
-					copy[i][j + 1].getNodes()[2][0].setY(average);
-
+					height = (original[i][j].getNodes()[0].getY() + original[i][j + 1]
+							.getNodes()[0].getY()) / 2;
+					original[i][j].getNodes()[0].setY(height);
+					original[i][j + 1].getNodes()[0].setY(height);
 				}
 			}
-
 		}
 
-		for (int j = 0; j < copy.length; j++) {
-			for (int i = 0; i < copy[j].length; i++) {
-				if (i != copy[j].length - 1) {
-					double average = (copy[i][j].getNodes()[2][0].getY() + copy[i + 1][j]
-							.getNodes()[0][0].getY()) / 2;
-
-					copy[i][j].getNodes()[2][0].setY(average);
-					copy[i + 1][j].getNodes()[0][0].setY(average);
-
-					average = (copy[i][j].getNodes()[2][2].getY() + copy[i + 1][j]
-							.getNodes()[0][2].getY()) / 2;
-
-					copy[i][j].getNodes()[2][2].setY(average);
-					copy[i + 1][j].getNodes()[0][2].setY(average);
-
-				}
+		for (int j = 0; j < original.length; j++) {
+			for (int i = 0; i < original[j].length - 1; i++) {
+				double height = (original[i][j].getNodes()[1].getY() + original[i+1][j].getNodes()[0].getY())/2;
+				original[i][j].getNodes()[1].setY(height);
+				original[i+1][j].getNodes()[0].setY(height);
+				
 			}
-
 		}
-
-		return copy;
-
+		return original;
 	}
+
 }

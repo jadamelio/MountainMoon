@@ -1,6 +1,13 @@
 import javax.swing.JFrame;
 import java.awt.Graphics;
 
+/**
+ * 
+ * @author Jacques
+ * @date Dec 18, 2015
+ * @class BasicEx.java
+ * @description TODO Describe the class
+ */
 public class BasicEx extends JFrame {
 	public BasicEx() {
 		initUI();

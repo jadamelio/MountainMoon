@@ -8,7 +8,7 @@ import java.util.Random;
  * @class MapGenerator.java
  * @description TODO Make a description
  */
-public class MapGenerator {
+public class MapGenerator extends Toolkit {
 	private int x;
 	private int z;
 	private Map map;
@@ -26,8 +26,8 @@ public class MapGenerator {
 		formatChain();
 
 	}
-	
-	public MapGenerator(Map map){
+
+	public MapGenerator(Map map) {
 		x = map.getX();
 		z = map.getZ();
 		this.map = map;
@@ -49,67 +49,89 @@ public class MapGenerator {
 		}
 		return copy;
 	}
-	
-	public ArrayList<Integer> getProperLengthList(double length, double fault, ArrayList<Integer> notRandom){
+
+	public ArrayList<Integer> getProperLengthList(double length, double fault,
+			ArrayList<Integer> notRandom) {
 		int num = (int) length / 16;
-		for(int i = 1; i <= num + 1; i++){
+		for (int i = 1; i <= num + 1; i++) {
 			String temp = Double.toString(fault * i);
-			for(int j = 0; j < 16; j++){
+			for (int j = 0; j < 16; j++) {
 				char now = temp.charAt(j);
 				notRandom.add((int) now);
 			}
 		}
 		return notRandom;
 	}
-		public void formatChain(){
-		/*
-		Random dice = new Random();
-		int lengthOne = (int) (((x + z) / 2));
-		int lengthTwo = (int) (((x + z) / 2));
-		
-		if(faultOne != 0)lengthOne = (int) (((x * faultOne) + (z * faultOne)) / 2);
-		int tempX = (int)(x - 1 * faultOne);
-		int tempY = (int)(z - 1 * faultOne);
-		chain(tempX, tempY, lengthOne, maxElevation, 0, -1);	
-		
-		tempX = (int)(x - 1 * faultTwo);
-		tempY = (int)(z - 1 * faultTwo);
-		if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo)) / 2);
-		chain(tempX,tempY, lengthTwo, 0, 0, -1);
-		*/
-		//chain(10,new ArrayList<Integer>(), 255, getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0);	
 
+	public void formatChain() {
+		/*
+		 * Random dice = new Random(); int lengthOne = (int) (((x + z) / 2));
+		 * int lengthTwo = (int) (((x + z) / 2));
+		 * 
+		 * if(faultOne != 0)lengthOne = (int) (((x * faultOne) + (z * faultOne))
+		 * / 2); int tempX = (int)(x - 1 * faultOne); int tempY = (int)(z - 1 *
+		 * faultOne); chain(tempX, tempY, lengthOne, maxElevation, 0, -1);
+		 * 
+		 * tempX = (int)(x - 1 * faultTwo); tempY = (int)(z - 1 * faultTwo);
+		 * if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo))
+		 * / 2); chain(tempX,tempY, lengthTwo, 0, 0, -1);
+		 */
+		chain(2000, 10, new ArrayList<Integer>(), 255,
+				getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0,
+				1000);
+		
+		chain(500, 10, new ArrayList<Integer>(), 140,
+				getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0,
+				1000);
+		System.out.println("Boom");
 	}
 
-	public void chain(int index, ArrayList<Integer> contains, double height,
-			ArrayList<Integer> dice, int dicePosition) {
-		int loop = 0;
-		if (dicePosition > dice.size()) {
-			dicePosition = 0;
-		}
-		if (contains.size() == 0) {
-			contains.add(index);
-			chain(index, contains, height, dice, dicePosition);
-		} else {
-
-			while (contains.contains(new Integer(map.getTile(index)
-					.getAdjacent(dice.get(dicePosition) % 3)))) {
-				loop++;
-				if (loop > dice.size()) {
-					break;
+	public void chain(int index, int failsafe, ArrayList<Integer> contains, double height, ArrayList<Integer> dice, int dicePosition, int length) {
+		// System.out.println(dicePosition);
+		if (length > 0) {
+			if (contains.size() < dice.get(0) + dice.get(1) * dice.get(2)) {
+				int loop = 0;
+				if (dicePosition >= dice.size()) {
+					dicePosition = 0;
 				}
-				dicePosition++;
-			}
-			contains.add(index);
-			map.getTile(index).setHeight(height);
-			chain(map.getTile(index).getAdjacent(dice.get(dicePosition) % 3),
-					contains, height, dice, dicePosition + 1);
 
+				// System.out.println("mom " + contains);
+				int num = (dice.get(dicePosition) % 3);
+				
+				
+				if (index < 0) {
+					chain(failsafe, failsafe, contains, height, dice,
+							++dicePosition, length);
+				} else {
+					contains.add(index);
+					map.getTile(index).setHeight(height);
+					while (contains.contains(map.getTile(index).getAdjacent(
+							dice.get(dicePosition) % 3))) {
+
+						loop++;
+						if (loop > dice.size()
+								|| dicePosition >= dice.size() - 1) {
+
+							
+							break;
+						}
+
+						dicePosition++;
+					}
+					num = (dice.get(dicePosition) % 3);
+					
+				//	System.out.println((map.getTile(index).getAdjacent(num)));
+					chain(map.getTile(index).getAdjacent(num), index, contains,
+							height, dice, ++dicePosition, --length);
+				}
+			}
 		}
+
 	}
 
 	public void chain(int x, int y, int length, double elevation, int current,
 			int prevIndex) {
+		// Deprecated
 		Random dice = new Random();
 		map.getTile(x, y).setHeight(elevation);
 

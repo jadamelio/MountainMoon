@@ -19,9 +19,51 @@ public class Map {
 		this.z = z;
 		this.dimension = dimension;
 		this.map = new Tile[x][z];
-		fillMap();
+		fillMap(1);
 	}
 	
+	public void fillMap(int a){
+		for(int i = 0; i < x; i++){
+			for(int j = 0; j < z; j++){
+				boolean tempUp = (i+j)%2 == 0;
+				int tempIndex = (i * z) + j;
+				int[] temp = new int[3];
+				if(i != 0  && i != x-1){
+					temp[0] = tempIndex-1;
+					temp[2] = tempIndex+1;
+					
+				}else if(i == 0){
+					temp[0] = -1;
+					temp[2] = tempIndex+1;
+				}else{
+					temp[0] = tempIndex-1;
+					temp[2] = -1;
+				}
+				
+				if(tempUp){
+					temp[1] = tempIndex + z;
+					
+					
+					
+				}else{
+					temp[1] = tempIndex - z;
+				}
+				
+				
+				double butts = .865;
+				double boots = .87;
+				
+				CoordPac tempInitCoord;
+				if(tempUp == true) tempInitCoord = new CoordPac(i * butts*dimension/Math.sqrt(3), 40  , j *boots* dimension);
+				else{
+					tempInitCoord = new CoordPac((i + 1) * butts*dimension/Math.sqrt(3), 0, j *boots*dimension);
+				}
+
+				map[i][j] = new Tile(tempIndex, temp, tempInitCoord, dimension, tempUp);
+				
+			}
+		}
+	}
 	public void fillMap(){
 		for(int i = 0; i < x; i++){
 			for(int j = 0; j < z; j++){
@@ -54,11 +96,13 @@ public class Map {
 					if(tempHelp[2]) tempAdjacent[2] = (tempIndex + 1);
 				}
 				
+				
+				//System.out.println(tempAdjacent[1]);
 				double butts = .865;
 				double boots = .87;
-				Random rd = new Random();
+				
 				CoordPac tempInitCoord;
-				if(tempUp == true) tempInitCoord = new CoordPac(i * butts*dimension/Math.sqrt(3),200  , j *boots* dimension);
+				if(tempUp == true) tempInitCoord = new CoordPac(i * butts*dimension/Math.sqrt(3),0  , j *boots* dimension);
 				else{
 					tempInitCoord = new CoordPac((i + 1) * butts*dimension/Math.sqrt(3), 0, j *boots*dimension);
 				}
