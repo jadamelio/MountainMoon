@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public class TestMain {
 	public static void main(String[] args){
-		Map map = new Map(100, 100, 50);
+		Map map = new Map(100, 100, 30);
 		MapGenerator test = new MapGenerator(map);
-		routine(map.getMap());
+		//routine(map.getMap());
 	}
 	
 	public static void routine(Tile[][] a) {
