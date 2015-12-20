@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * 
@@ -59,10 +60,19 @@ public class Map {
 					else tempAdjacent[2] = -1;
 				}
 				
+				double butts = .865;
+				double boots = .87;
+				Random rd = new Random();
 				CoordPac tempInitCoord;
+<<<<<<< HEAD
 				if(tempUp == true) tempInitCoord = new CoordPac(i * dimension, -1, j * dimension);
 				else{
 					tempInitCoord = new CoordPac((i + 1) * dimension, -1, j * dimension);
+=======
+				if(tempUp == true) tempInitCoord = new CoordPac(i * butts*dimension/Math.sqrt(3),200  , j *boots* dimension);
+				else{
+					tempInitCoord = new CoordPac((i + 1) * butts*dimension/Math.sqrt(3), 0, j *boots*dimension);
+>>>>>>> 4f3a95a4b6340e9445f7fe9610ae1f4a1179a730
 				}
 
 				map[i][j] = new Tile(tempIndex, tempAdjacent, tempInitCoord, dimension, tempUp);

@@ -89,9 +89,6 @@ public class MapGenerator {
 		*/
 		chain(10,new ArrayList<Integer>(), 255, getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0);	
 
-			System.out.println(map.getTile(261).getAdjacent(0));
-			System.out.println(map.getTile(261).getAdjacent(1));
-			System.out.println(map.getTile(261).getAdjacent(2));
 	}
 
 	public void chain(int index, ArrayList<Integer> contains, double height,

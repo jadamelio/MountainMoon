@@ -1,9 +1,11 @@
 import javax.swing.JPanel;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Stroke;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -35,7 +37,8 @@ public class mapGraphic extends JPanel {
 		Graphics2D g2D = (Graphics2D) g;
 		for (int i = 0; i < tiles.size(); i++) {
 		g2D.setColor(colour.get(i));
-			g2D.drawPolygon(tiles.get(i));
+		g2D.setStroke(new BasicStroke(200));
+			g2D.fillPolygon(tiles.get(i));
 			
 		}
 

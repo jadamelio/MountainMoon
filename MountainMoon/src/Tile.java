@@ -74,12 +74,12 @@ public class Tile extends Toolkit {
 				originCoord.getZ());
 		if(up == true){
 			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(),
-					originCoord.getZ() + Math.sqrt(3) * (dimension / 2));
+					originCoord.getZ() + (Math.sqrt(3) * (dimension / 2)));
 		}
 		
 		else{
 			temp[1] = new CoordPac(originCoord.getX() + (dimension / 2), originCoord.getY(), 
-					originCoord.getZ() - Math.sqrt(3) * (dimension / 2));
+					originCoord.getZ() - (Math.sqrt(3) * (dimension / 2)));
 		}
 		return temp;
 
