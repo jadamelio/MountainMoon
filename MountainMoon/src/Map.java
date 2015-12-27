@@ -46,7 +46,11 @@ public class Map {
 					
 					
 				}else{
+					if(i != 0){
 					temp[1] = tempIndex - z;
+					}else{
+						temp[1] = -1;
+					}
 				}
 				
 				
@@ -147,10 +151,16 @@ public class Map {
 	public Tile getTile(int inX, int inZ){
 		return map[inX][inZ];
 	}
-	
+
 	public Tile getTile(int inIndex){
-		int tempX = inIndex / z;
-		int tempZ = inIndex % z;
+		
+	//	System.out.println(inIndex);
+		int tempZ = inIndex % x ;
+		int tempX = (inIndex/z) - 1;
+		if(tempX < 0){
+			tempX = 0;
+		}
+		
 		return map[tempX][tempZ];
 	}
 	

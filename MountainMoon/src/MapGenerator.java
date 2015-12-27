@@ -76,18 +76,17 @@ public class MapGenerator extends Toolkit {
 		 * if(faultTwo != 0)lengthTwo = (int) (((x * faultTwo) + (z * faultTwo))
 		 * / 2); chain(tempX,tempY, lengthTwo, 0, 0, -1);
 		 */
-		chain(2000, 10, new ArrayList<Integer>(), 255,
+		chain(8000, 8000, new ArrayList<Integer>(), 255,
 				getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0,
 				1000);
 		
-		chain(500, 10, new ArrayList<Integer>(), 140,
-				getProperLengthList(65, faultOne, new ArrayList<Integer>()), 0,
-				1000);
+	
 		System.out.println("Boom");
 	}
 
 	public void chain(int index, int failsafe, ArrayList<Integer> contains, double height, ArrayList<Integer> dice, int dicePosition, int length) {
 		// System.out.println(dicePosition);
+		
 		if (length > 0) {
 			if (contains.size() < dice.get(0) + dice.get(1) * dice.get(2)) {
 				int loop = 0;
@@ -100,10 +99,12 @@ public class MapGenerator extends Toolkit {
 				
 				
 				if (index < 0) {
-					chain(failsafe, failsafe, contains, height, dice,
+					System.out.println("chug chug");
+					chain(failsafe, failsafe--, contains, height, dice,
 							++dicePosition, length);
 				} else {
 					contains.add(index);
+					
 					map.getTile(index).setHeight(height);
 					while (contains.contains(map.getTile(index).getAdjacent(
 							dice.get(dicePosition) % 3))) {

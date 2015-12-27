@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class TestMain {
 	public static void main(String[] args){
-		Map map = new Map(100, 100, 20);
+		Map map = new Map(100, 100, 5);
 		MapGenerator test = new MapGenerator(map);
 		routine(map.getMap());
 	}
